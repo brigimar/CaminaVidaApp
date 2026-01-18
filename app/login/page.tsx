@@ -19,17 +19,26 @@ export default function LoginPage() {
         setLoading(true);
         setError(null);
 
-        const { error: loginError } = await supabase.auth.signInWithPassword({
-            email,
-            password,
-        });
+        try {
+            const { error: loginError } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+                options: {
+                    redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/dashboard/onboarding/step1-personal`,
+                },
+            });
 
-        setLoading(false);
-
-        if (loginError) {
-            setError(loginError.message);
-        } else {
-            router.push('/dashboard/onboarding/step1-personal');
+            if (loginError) {
+                setError(loginError.message);
+            } else {
+                // Redirigir solo si login fue exitoso
+                router.push('/dashboard/onboarding/step1-personal');
+            }
+        } catch (err) {
+            console.error(err);
+            setError('Error inesperado al iniciar sesión.');
+        } finally {
+            setLoading(false);
         }
     };
 
