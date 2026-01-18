@@ -29,7 +29,7 @@ export default function LoginPage() {
         if (loginError) {
             setError(loginError.message);
         } else {
-            router.push('/dashboard/onboarding/step1');
+            router.push('/dashboard/onboarding/step1-personal');
         }
     };
 
