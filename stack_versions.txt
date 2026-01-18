@@ -1,0 +1,39 @@
+=== STACK VERSIONS REPORT ===
+Fecha: 01/13/2026 17:52:24
+
+--- Node & npm ---
+v20.19.6
+11.7.0
+
+--- Backend Dependencies ---
+caminavida@1.0.0 E:\BuenosPasos\buenospasos\caminavida
+ÔööÔöÇÔöÇ (empty)
+
+prisma               : 7.2.0
+@prisma/client       : Not found
+Operating System     : win32
+Architecture         : x64
+Node.js              : v20.19.6
+TypeScript           : unknown
+Query Compiler       : enabled
+PSL                  : @prisma/prisma-schema-wasm 7.2.0-4.0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
+Schema Engine        : schema-engine-cli 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3 (at C:\Users\PC\AppData\Local\npm-cache\_npx\2778af9cee32ff87\node_modules\@prisma\engines\schema-engine-windows.exe)
+Default Engines Hash : 0c8ef2ce45c83248ab3df073180d5eda9e8be7a3
+Studio               : 0.9.0
+
+--- Frontend Dependencies (Next.js / Tailwind) ---
+caminavida@1.0.0 E:\BuenosPasos\buenospasos\caminavida
+ÔööÔöÇÔöÇ (empty)
+
+Need to install the following packages:
+next@16.1.1
+Ok to proceed? (y) Next.js v16.1.1
+
+--- Full Dependency Tree Backend (depth 3) ---
+caminavida@1.0.0 E:\BuenosPasos\buenospasos\caminavida
+ÔööÔöÇÔöÇ (empty)
+
+--- Full Dependency Tree Frontend (depth 3) ---
+caminavida@1.0.0 E:\BuenosPasos\buenospasos\caminavida
+ÔööÔöÇÔöÇ (empty)
+

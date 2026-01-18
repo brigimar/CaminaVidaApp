@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Aquí van tus estilos adicionales opcionales */
+
+
+@theme {
+  /* Definición de colores */
+  --color-brand-coral: #ff5c35;
+  --color-brand-crema: #fffbf7;
+  --color-brand-dark: #1b1b1b;
+  --color-brand-soft: #fcfcfc;
+  --color-brand-border: #e9ecef;
+  
+  /* Radios y Sombras */
+  --radius-premium: 1.5rem;
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+  --shadow-deep: 0 30px 60px -12px rgba(0, 0, 0, 0.1);
+
+  /* Animaciones */
+  --animate-topo-flow: topoFlow linear infinite;
+  --animate-fade-in: fadeIn 0.8s ease-out forwards;
+  --animate-slide-up: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes topoFlow {
+    from { stroke-dashoffset: 1000; }
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@layer base {
+  body {
+    @apply antialiased;
+    background-color: var(--color-brand-crema);
+    color: var(--color-brand-dark);
+  }
+}
+
+@layer components {
+  /* SOLUCIÓN AL ERROR: 
+     En v4, usamos las variables nativas directamente para evitar 
+     que PostCSS busque clases de utilidad que aún no existen.
+  */
+  .premium-card {
+    background-color: var(--color-brand-soft);
+    border-radius: var(--radius-premium);
+    border: 1px solid var(--color-brand-border);
+    box-shadow: var(--shadow-premium);
+    @apply overflow-hidden transition-all duration-300;
+  }
+
+  .heading-xl {
+    color: var(--color-brand-dark);
+    @apply font-black tracking-tight leading-none;
+  }
+
+  .micro-label {
+    @apply text-[10px] font-bold uppercase tracking-widest;
+    color: color-mix(in srgb, var(--color-brand-dark), transparent 60%);
+  }
+
+  .btn-primary {
+    background-color: var(--color-brand-dark);
+    color: var(--color-brand-soft);
+    @apply px-8 py-3 rounded-full text-[11px] font-black uppercase tracking-widest transition-all duration-300;
+    /* Usamos la animación registrada en el tema */
+    animation: var(--animate-slide-up);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-brand-coral);
+    box-shadow: var(--shadow-deep);
+    @apply -translate-y-0.5;
+  }
+}
