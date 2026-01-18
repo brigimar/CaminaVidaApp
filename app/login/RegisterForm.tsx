@@ -9,33 +9,39 @@ export default function RegisterForm() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true);
         setError(null);
         setSuccess(null);
 
-        if (password !== passwordConfirm) {
-            setError('Las contraseñas no coinciden');
-            return;
-        }
+        try {
+            const { data, error: signUpError } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
+                },
+            });
 
-        setLoading(true);
-        const { error: supabaseError } = await supabase.auth.signUp({
-            email,
-            password,
-        });
-        setLoading(false);
-
-        if (supabaseError) {
-            setError(supabaseError.message);
-        } else {
-            setSuccess('Usuario creado correctamente. Revisa tu email para confirmar.');
-            setTimeout(() => router.push('/login'), 2000);
+            if (signUpError) {
+                setError(signUpError.message);
+            } else if (data.user) {
+                setSuccess(
+                    'Usuario registrado correctamente. Revisa tu email para confirmar la cuenta.'
+                );
+            } else {
+                setError('No se pudo registrar el usuario. Intenta nuevamente.');
+            }
+        } catch (err) {
+            console.error(err);
+            setError('Error inesperado al registrar usuario.');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -57,23 +63,15 @@ export default function RegisterForm() {
                 className="p-2 border rounded"
                 required
             />
-            <input
-                type="password"
-                placeholder="Confirmar contraseña"
-                value={passwordConfirm}
-                onChange={(e) => setPasswordConfirm(e.target.value)}
-                className="p-2 border rounded"
-                required
-            />
             <button
                 type="submit"
                 disabled={loading}
                 className="bg-green-500 text-white py-2 rounded disabled:opacity-50"
             >
-                {loading ? <Loader2 className="animate-spin w-5 h-5 mx-auto" /> : 'Registrar'}
+                {loading ? <Loader2 className="animate-spin w-5 h-5 mx-auto" /> : 'Registrarse'}
             </button>
             {error && <p className="text-red-500">{error}</p>}
-            {success && <p className="text-green-500">{success}</p>}
+            {success && <p className="text-green-600">{success}</p>}
         </form>
     );
 }
